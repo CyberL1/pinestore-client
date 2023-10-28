@@ -1,9 +1,9 @@
 local endpoints = require("endpoints")
 local utils = require("utils")
 
-local projects = utils.getData(endpoints.projects).projects
+term.clear()
 
-for i = 1, #projects do
-  local project = projects[i]
-  print(i .. ". " .. project.name .. " by " .. project.owner_name)
-end
+local projects = utils.getData(endpoints.projects).projects
+local selectedProject = 1
+
+utils.drawProjects(projects, selectedProject)
