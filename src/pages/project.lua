@@ -9,7 +9,7 @@ local function drawProjectInfo()
 
   print(project.name .. " - " .. project.owner_name)
   print()
-  print("Install")
+  print("Press enter to install")
   print()
   print(project.description)
 end
