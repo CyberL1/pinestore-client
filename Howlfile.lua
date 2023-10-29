@@ -11,6 +11,6 @@ Tasks:require "main" {
   output = "out/pinestore.lua"
 }
 
-Tasks:Task "build" { "clean", "minify" }
+Tasks:Task "build" { "clean", "minify" } :Description "Builds application"
 
 Tasks:Default "build"
