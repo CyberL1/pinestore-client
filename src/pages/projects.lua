@@ -11,6 +11,12 @@ local currentPageStart = 1
 local currentPageEnd = pageSize
 local itemText
 
+for i = #projects, 1, -1 do
+  if not projects[i].install_command or not projects[i].target_file then
+    table.remove(projects, i)
+  end
+end
+
 local function drawProjects()
   term.clear()
   term.setCursorPos(1, 1)
