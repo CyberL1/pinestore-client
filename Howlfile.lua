@@ -6,7 +6,7 @@ Tasks:minify "minify" {
 }
 
 Tasks:require "main" {
-  input = "src",
+  include = "src",
   startup = "src/main.lua",
   output = "out/pinestore.lua"
 }
