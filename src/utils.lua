@@ -1,9 +1,9 @@
 local utils = {}
 
-function utils.getData(endpoint)
-  local res = http.get(endpoint)
+function utils.getData(path)
+  local res = http.get("https://pinestore.cc/api/" .. path)
   if not res then
-    print("Failed to GET " .. endpoint)
+    print("Failed to GET https://pinestore.cc/api/" .. path)
     return
   end
 
@@ -12,22 +12,16 @@ function utils.getData(endpoint)
   return textutils.unserializeJSON(data)
 end
 
-function utils.drawProjects(projects, currentProject)
-  term.setCursorPos(1, 1)
+function utils.openPage(page, ...)
+  local programDir = fs.getDir(shell.getRunningProgram())
+  local fn = loadfile(programDir .. "/pages/" .. page .. ".lua", "t", _ENV)(arg)
+  local ok, err = pcall(fn)
 
-  for i = 1, #projects do
-    if i == currentProject then
-      term.setTextColor(colors.blue)
-    else
-      term.setTextColor(colors.gray)
-    end
-
-    local str = i .. ". " .. projects[i].name
-    local x, y = term.getCursorPos()
-
-    print(str)
+  if not ok then
+    term.setTextColor(colors.red)
+    print(err)
+    term.setTextColor(colors.white)
   end
-  term.setTextColor(colors.white)
 end
 
 return utils
