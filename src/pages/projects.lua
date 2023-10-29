@@ -3,10 +3,13 @@ local utils = require("utils")
 local projects = utils.getData("projects").projects
 local selectedProject = 1
 
-local pageSize = 5
+local width, height = term.getSize()
+
+local pageSize = height - 3
 local currentPage = 1
 local currentPageStart = 1
 local currentPageEnd = pageSize
+local itemText
 
 local function drawProjects()
   term.clear()
@@ -15,17 +18,28 @@ local function drawProjects()
   for i = 1, pageSize do
     local itemIndex = i + (currentPage - 1) * pageSize
     if projects[itemIndex] then
-      if selectedProject == itemIndex then
-        term.setTextColor(colors.blue)
+      itemText = projects[itemIndex].name
+
+      if not term.isColor() then
+        if selectedProject == itemIndex then
+          itemText = "> " .. projects[itemIndex].name
+        end
       else
-        term.setTextColor(colors.gray)
+        if selectedProject == itemIndex then
+          term.setTextColor(colors.blue)
+        else
+          term.setTextColor(colors.gray)
+        end
       end
-      print(projects[itemIndex].name)
+
+      print(itemText)
     else
       break
     end
   end
+
   term.setTextColor(colors.white)
+  term.setCursorPos(1, height - 1)
   print("Selected project " .. selectedProject .. " of " .. #projects)
 end
 
