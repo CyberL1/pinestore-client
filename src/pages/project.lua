@@ -1,5 +1,5 @@
 local arg = ...
-local utils = require("utils")
+local utils = require("src.utils")
 
 local project = utils.getData("project/" .. arg[1]).project
 

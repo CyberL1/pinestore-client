@@ -1,1 +1,1 @@
-require("pages/projects")
+require("src.pages.projects")

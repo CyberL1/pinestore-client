@@ -13,8 +13,7 @@ function utils.getData(path)
 end
 
 function utils.openPage(page, ...)
-  local programDir = fs.getDir(shell.getRunningProgram())
-  local fn = loadfile(programDir .. "/pages/" .. page .. ".lua", "t", _ENV)(arg)
+  local fn = preload["src.pages." .. page](arg)
   local ok, err = pcall(fn)
 
   if not ok then
