@@ -12,6 +12,19 @@ function utils.getData(path)
   return textutils.unserializeJSON(data)
 end
 
+function utils.postData(path, data)
+  local res = http.post("https://pinestore.cc/api/" .. path, textutils.serializeJSON(data),
+    { ["Content-Type"] = "application/json" })
+  if not res then
+    print("Failed to POST https://pinestore.cc/api/" .. path)
+    return
+  end
+
+  local data = res.readAll()
+  res.close()
+  return textutils.unserializeJSON(data)
+end
+
 function utils.openPage(page, ...)
   local fn = preload["src.pages." .. page](arg)
   local ok, err = pcall(fn)
@@ -53,6 +66,7 @@ function utils.install(app)
   end
 
   local ok, err = xpcall(shell.run, debug.traceback, app.install_command)
+  utils.postData("log/download", { projectId = app.id })
 
   if not ok then
     print(err)
