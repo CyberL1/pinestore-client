@@ -1,4 +1,9 @@
-local utils = require("src.utils")
+local utils
+if oldRequire then
+  utils = require("src.utils")
+else
+  utils = require("utils")
+end
 
 local projects = utils.getData("projects").projects
 local selectedProject = 1

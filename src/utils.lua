@@ -26,7 +26,13 @@ function utils.postData(path, data)
 end
 
 function utils.openPage(page, ...)
-  local fn = preload["src.pages." .. page](arg)
+  local fn
+  if oldRequire then
+    fn = preload["src.pages." .. page](arg)
+  else
+    local programDir = fs.getDir(shell.getRunningProgram())
+    fn = loadfile(programDir .. "/pages/" .. page .. ".lua", "t", _ENV)(arg)
+  end
   local ok, err = pcall(fn)
 
   if not ok then

@@ -1,5 +1,11 @@
 local arg = ...
-local utils = require("src.utils")
+
+local utils
+if oldRequire then
+  utils = require("src.utils")
+else
+  utils = require("utils")
+end
 
 local project = utils.getData("project/" .. arg[1]).project
 
