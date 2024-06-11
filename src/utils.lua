@@ -26,6 +26,7 @@ function utils.postData(path, data)
 end
 
 function utils.openPage(page, ...)
+  local arg = {...}
   local fn
   if oldRequire then
     fn = preload["src.pages." .. page](arg)
